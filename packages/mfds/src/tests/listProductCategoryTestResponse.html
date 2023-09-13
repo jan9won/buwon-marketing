@@ -1,0 +1,770 @@
+HTTP/1.1 200 OK
+Date: Sat, 09 Sep 2023 14:31:46 GMT
+Server: Apache
+Access-Control-Allow-Headers: Origin, Content-Type, Accept, X-Requested-With
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+Content-Security-Policy: default-src http:; script-src http: 'unsafe-inline' 'unsafe-eval'; style-src http: 'unsafe-inline'; img-src 'self' data: http: blob:
+Access-Control-Allow-Origin: https://impfood.mfds.go.kr
+Access-Control-Allow-Credentials: true
+X-Content-Type-Options: nosniff
+Strict-Transport-Security: max-age=31536000 ; includeSubDomains
+Content-Language: ko-KR
+Access-Control-Allow-Methods: POST, GET
+Access-Control-Max-Age: 3600
+Content-Length: 25194
+Connection: close
+Content-Type: text/html;charset=UTF-8
+
+<!DOCTYPE html>
+
+<html lang="ko" 
+	style="opacity:0;">
+<head>
+	<title>유형(품목)검색  : 수입식품정보마루</title>
+	<meta charset="UTF-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	
+	<link rel="icon" href="/images/favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="https://impfood.mfds.go.kr/images/favicon.ico" type="image/x-icon" />
+	<link rel="stylesheet" href="/js/jquery-ui/jquery-ui.min.css"/>
+	<link rel="stylesheet" href="/css/common.css?ver=2"/>
+	<link rel="stylesheet" href="/css/all.css"/>
+	
+	
+	
+	<script>
+	
+	var gSessionAge = Number(null);
+	
+	var isEngLang = false; 
+	var btnOkMsg = "\uD655\uC778"; 
+	var btnYesMsg = "\uC608"; 
+	var btnNoMsg = "\uC544\uB2C8\uC624"; 
+	var btnConfirmMsg = "\uD655\uC778"; 
+	var btnCancelMsg = "\uCDE8\uC18C"; 
+	var btnDateSelectMsg = "\uC77C\uC790\uC120\uD0DD"; 
+	var btnYearMsg = "\uB144"; 
+	var titleAlertMsg = "\uC548\uB0B4"; 
+	var titleApproveMsg = "\uC2B9\uC778"; 
+	var msgEnter = " \uD56D\uBAA9\uC744 \uC785\uB825\uD574\uC8FC\uC138\uC694."; 
+	var msgChoice = " \uD56D\uBAA9\uC744 \uC120\uD0DD\uD574\uC8FC\uC138\uC694."; 
+	var msgIndex = "\uBC88\uC9F8"; 
+	var msgFileSize = "\uD30C\uC77C 1\uAC1C\uB2F9 \uCCA8\uBD80\uD560 \uC218 \uC788\uB294 \uC6A9\uB7C9 \uBC94\uC704\uB294 \uB2E4\uC74C\uACFC \uAC19\uC2B5\uB2C8\uB2E4."; 
+	var msgFileExten = "\uC120\uD0DD\uD558\uC2E0 \uD30C\uC77C\uC740 \uCCA8\uBD80\uD560 \uC218 \uC5C6\uC2B5\uB2C8\uB2E4."; 
+	var msgErrorGuide = "\uC5D0\uB7EC\uAC00 \uBC1C\uC0DD\uD558\uC600\uC2B5\uB2C8\uB2E4."; 
+	</script>
+	<script src="/js/jquery-1.12.4.min.js"></script>
+	<script src="/js/jquery-3.1.1.min.js"></script>
+	<script>
+		$("html").delay(250).animate({"opacity" : "1"}, 250);
+	</script>
+	<script src="/js/jquery-ui/jquery.ui.core.js"></script>
+	<script src="/js/jquery-ui/jquery-ui.min.js"></script>
+	<script src="/js/jquery-ui/jquery.ui.widget.js"></script>
+	<script src="/js/jquery-ui/jquery.ui.datepicker.js"></script>
+	<script src="/js/jquery.inputmask.bundle.js"></script>
+	<script src="/js/jquery.maskedinput.min.js"></script>
+	<script src="/js/jquery.form.js"></script>
+	<script src="/js/jquery.bxslider.min.js"></script>
+	<script src="/js/jquery.bpopup.min.js"></script>
+	<script src="/js/plupload/js/plupload.full.min.js"></script>
+	<script src="/js/plupload/js/tablednd/jquery.tablednd.min.js"></script>
+	<script src="/js/common.js?ver=1"></script>
+	<script src="/js/design.js"></script>
+	
+
+<script>
+
+			
+			$(document).ready(function() {
+				// 제품사진 갤러리 관련 제목및 디자인 수정 초기화
+				if(["CFCCC01F01"]){
+					if(["CFCCC01F01"] == 'CFCCC01F12'){
+						$('#tySpcisLclsCd').css('width',140);
+						document.title="제품유형조회";
+					}
+				}
+
+				$("#frm input[type='text']").on("keyup", function(e) {
+		            if (e.which == 13) {
+		            	fnSearch(1);
+		            }
+				});
+
+				if ([""] == 1) {
+					if (["A"] == 'H') {
+						var target = $("#upperItemCd");
+						$(target).before('<input type="hidden" name="upperItemCd" value="'+$("#upperItemCd option:selected").val()+'">');
+						$(target).before('<input type="text" value="'+$("#upperItemCd option:selected").text()+'" class="w-11" readonly="readonly">');
+						$(target).remove();
+					} else {
+						var target = $("#searchTySpcisLclsCd");
+						$(target).before('<input type="hidden" name="searchTySpcisLclsCd" value="'+$("#searchTySpcisLclsCd option:selected").val()+'">');
+						$(target).before('<input type="text" value="'+$("#searchTySpcisLclsCd option:selected").text()+'" class="w-4" readonly="readonly">');
+						$(target).remove();
+					}
+				}
+
+				// 제품사진갤러리 관련 체크여부 확인
+				if([""]){
+					if([""][0]){
+						// 전체 선택 기능 체크
+						var allChk = true;
+						// 저장된 품목
+						var requestObj = JSON.parse([""]);
+						// 체크 저장된 품목코드
+						paramItmArr = Object.keys(requestObj);
+						// 현재 페이지 품목
+						itmList = document.querySelectorAll('table.board_list.auto_title.mo-list tbody tr');
+
+						var nodataChk = document.querySelector('span.nodata'); // 목록이 없을 때 확인
+
+						if(nodataChk == null){ // 목록이 있을 때 nodata 태그가 없음으로 목록이 있음
+							for(var i = 0 ; i < itmList.length ; i++){
+								var obj = itmList[i];
+								var no = obj.querySelectorAll('td input')[1].value;
+
+								var compareItmValue = obj.querySelector('input[id="itmCd'+ no +'"]').value;
+
+								paramItmArr.forEach(function(item,index){ // 기존 데이터와 목록 비교후 체크
+									if(compareItmValue == item){
+										obj.querySelector('input[id="chk'+ no +'"]').setAttribute('checked',true);
+									}
+								});
+
+								// 전체선택 체크박스 확인
+								if(obj.querySelectorAll('td input')[1].getAttribute('checked') == null){
+									allChk = false;
+								}
+							}
+						}
+
+						// 전체 선택 컴포넌트
+						if(allChk){
+							$('#chk').prop('checked',true);
+						}
+
+						// 초기 진입 input 품목명 기입
+						var tempStr = "";
+						for(var item in requestObj){
+							tempStr += requestObj[item] + ',';
+						}
+						tempStr = tempStr.slice(0,-1);
+
+						$('input[name="multiItmNm"]').val(tempStr);
+					}
+				}
+			});
+			
+			
+			function fnSearch(page) {
+				gfnLoadingOn();
+				$("#page").val(page);
+
+				$("#frmMultiItmCd").val($("#multiItmCd").val());
+				$("#frmMultiItmNm").val($("#multiItmNm").val());
+				$("#frm").attr("action", "\/CFECC01P01" );
+				$("#frm").submit();
+			}
+				   
+			
+			function fnPageLimit(limit) {
+				$("#frm #limit").val(limit);
+				fnSearch(1);
+			}
+			
+			
+			function fnGetList(page) {
+				fnSearch(page);
+			}
+
+
+			
+			function fnAddItem(){
+
+				if($('input:checkbox[name=chkItm]:checked').length == 0){
+					gfnAlert({
+						content : "체크된 항목이 없습니다."
+					})
+					return;
+				} else {
+					var itmCd = "";
+					var itmNm = "";
+					var itmEnNm = "";
+
+					$('input:checkbox[name=chkItm]:checked').each(function (i) {
+						if([""][0] !== 'Y'){// 수입식품조회
+							//이미 추가된 품목이 아닐 경우만 추가
+							if($("#multiItmCd").val().indexOf($(this).val()) == -1){
+								itmCd += $(this).val() + ",";
+								itmNm += $(this).attr("alt") + ",";
+								itmEnNm += $(this).parent().parent().find('input#engNm'+ $(this).prop('id').substring(3)).val() + ",";
+							}
+						}else{ // 해외제조업소 관련 민원
+							//이미 추가된 품목이 아닐 경우만 추가
+							if($("#multiItmCd").val().indexOf($(this).val()) == -1){
+								itmCd += $(this).val() + ":";
+								itmNm += $(this).attr("alt") + ":";
+								itmEnNm += $(this).parent().parent().find('input#engNm'+ $(this).prop('id').substring(3)).val() + ":";
+							}
+						}
+					});
+
+					itmCd = itmCd.substring(0, itmCd.length -1);
+					itmNm = itmNm.substring(0, itmNm.length -1);
+					itmEnNm = itmEnNm.substring(0, itmEnNm.length -1);
+
+					//추가된 품목이 있을 경우 추가
+					if([""][0] !== 'Y'){ // 수입식품조회
+
+						if($("#multiItmCd").val() != "" && itmCd != ""){
+							$("#multiItmCd").val($("#multiItmCd").val() + "," + itmCd);
+							$("#multiItmNm").val($("#multiItmNm").val() + "," + itmNm);
+							$("#multiItmEnNm").val($("#multiItmEnNm").val() + "," + itmEnNm);
+						} else {
+							$("#multiItmCd").val($("#multiItmCd").val() + itmCd);
+							$("#multiItmNm").val($("#multiItmNm").val() + itmNm);
+							$("#multiItmEnNm").val($("#multiItmEnNm").val() + itmEnNm);
+						}
+
+					} else { // 해외제조업소 관련 민원
+
+						if($("#multiItmCd").val() != "" && itmCd != ""){
+							$("#multiItmCd").val($("#multiItmCd").val() + ":" + itmCd);
+							$("#multiItmNm").val($("#multiItmNm").val() + ":" + itmNm);
+							$("#multiItmEnNm").val($("#multiItmEnNm").val() + ":" + itmEnNm);
+						} else {
+							$("#multiItmCd").val($("#multiItmCd").val() + itmCd);
+							$("#multiItmNm").val($("#multiItmNm").val() + itmNm);
+							$("#multiItmEnNm").val($("#multiItmEnNm").val() + itmEnNm);
+						}
+
+					}
+				}
+			}
+			
+			
+			function fnConfirm(){
+
+				var usePageId = $("#usePageId").val();
+
+				if(usePageId == "CFCMM01F01" || usePageId == "CFRBA03F01"){
+
+					var rdoRn = $('input[name="rdoCmmnCode"]:checked').val();
+					if( rdoRn == '' || rdoRn == null ){
+						gfnAlert({
+							content : "선택된 항목이 없습니다."
+						})
+						return;
+					}
+
+					var appChk = gfnIsNative();
+
+					try {
+						if(appChk == "" || appChk == null){
+							$('#srchText',opener.document).val($('#koreanNm'+rdoRn).val());
+						}else{
+							var param = {};
+							var temp = [];
+							param.koreanNm = $('#koreanNm'+rdoRn).val();
+							param.viewId = 'CFECC01P01';
+							temp.push(param);
+							param = temp;
+							window.app.runAppPopup(["fnPopupCallback"]+'',JSON.stringify(param)); // object 타입에 작은 따옴표로 문자열 변환
+						}
+						window.close();
+					} catch (e) {return;}
+					
+				}else if(usePageId == "CFCCC01F01"){
+
+					var multiItmCd = $("#multiItmCd").val();
+					if( multiItmCd == '' || multiItmCd == null ){
+						gfnAlert({
+							content : "추가된 항목이 없습니다."
+						})
+						return;
+					}
+
+					try {
+
+						if([""][0] !== 'Y'){
+							$('#rpsntItmNm',opener.document).val($('#multiItmNm').val());
+							$('#rpsntItmCd',opener.document).val($('#multiItmCd').val());
+						}else{
+							var itmCd = $('#multiItmCd').val();
+							var itmNm = $('#multiItmNm').val();
+							var itmEnNm = $('#multiItmEnNm').val();
+							var param = {
+									viewId : 'CFECC01P01',
+									itmCd : itmCd,
+									itmNm : itmNm,
+									itmEnNm : itmEnNm,
+							};
+							eval("window.opener." + ["fnPopupCallback"] + "(param)");
+						}
+						window.close();
+					} catch (e) {return;}
+
+				}else if(usePageId == "CFDAA01F01"){
+
+					var multiItmCd = $("#multiItmCd").val();
+					if( multiItmCd == '' || multiItmCd == null ){
+						gfnAlert({
+							content : "추가된 항목이 없습니다."
+						})
+						return;
+					}
+
+					try {
+						$('#srchRpsntItmCd',opener.document).val($('#multiItmCd').val());
+						$('#srchRpsntItmNm',opener.document).val($('#multiItmNm').val());
+						window.close();
+					} catch (e) {return;}
+
+				}else if(usePageId == "CFCCC01F12"){
+					var initValues = null;
+					var objKeysLength = null;
+					if($('#initValues').val()){
+						initValues = JSON.parse($('#initValues').val());
+						objKeysLength = Object.keys(initValues).length;
+					}
+
+					if(!objKeysLength){
+						gfnAlert({
+							content : "선택된 항목이 없습니다."
+						})
+						return;
+					}
+
+					var param = {};
+					var temp = [];
+
+					param.initValues = initValues;
+					param.viewId = 'CFECC01P01';
+					temp.push(param);
+					param = temp;
+
+					try {
+						var mobileYn = gfnIsNative();
+						if(mobileYn){ // 어플일때
+							window.app.runAppPopup(["fnPopupCallback"]+'',JSON.stringify(param)); // object 타입에 작은 따옴표로 문자열 변환
+						}else{ // 웹일때
+							eval("window.opener." + ["fnPopupCallback"] + "(param)");
+						}
+						window.close();
+					} catch (e) {return;}
+
+				} else{
+
+					var rdoRn = $('input[name="rdoCmmnCode"]:checked').val();
+					if( rdoRn == '' || rdoRn == null ){
+						gfnAlert({
+							content : "선택된 항목이 없습니다."
+						})
+						return;
+					}
+
+					var itmCd = $('#itmCd'+rdoRn).val();
+					var itmNm = $('#koreanNm'+rdoRn).val();
+					var itmEnNm = $('#engNm'+rdoRn).val();
+					var param = {
+							viewId : 'CFECC01P01',
+							itmCd : itmCd, 
+							itmNm : itmNm,
+							itmEnNm : itmEnNm,
+					};
+					
+					try {
+						eval("window.opener." + ["fnPopupCallback"] + "(param)");
+						window.close();
+					} catch (e) {return;}
+				}
+			
+			}
+
+
+		
+		var saveJSON = {};
+		if([""]){
+			if([""][0]){
+				saveJSON = JSON.parse([""][0]);
+			}
+		}
+
+		
+		function fnChkItm(obj){
+			// 체크된 행번호 (행렬에 적용하므로 -1 값)
+			if(["1"]){ // 선택한 input 번호값에서 - ( (page 값에서 -1)  * 10[페이지값]) ) - 1 = 테이블 행row 번호값
+				var index = ( obj.value - ( ( ["1"][0] - 1 ) * 10) ) -1;
+			}else{ // 파람값 없을 때
+				var index = obj.value -1 ;
+			}
+			// 테이블 tr
+			var chkTableTrs = document.querySelectorAll('table.board_list.auto_title.mo-list > tbody > tr');
+			// itmCd (품목코드) itmNm (품목명)
+			var itmCd = chkTableTrs[index].querySelectorAll('input')[2].value;
+			var itmNm = chkTableTrs[index].querySelectorAll('input')[3].value;
+			var tmpCd = "";
+			var tmpStr = "";
+
+			if($(obj).prop('checked')){ // 체크할때
+				// 객체 저장
+				saveJSON[itmCd] = itmNm;
+
+			}else{ // 체크제거
+				delete saveJSON[itmCd];
+			}
+
+			// 코드
+			for(var item in saveJSON){
+				tmpCd += itmCd + ',';
+				tmpStr += saveJSON[item] + ',';
+			}
+
+			// 마지막 콤마 없애기
+			tmpCd = tmpCd.slice(0,-1);
+			tmpStr = tmpStr.slice(0,-1);
+
+			// 입히기
+			$("#multiItmCd").val(tmpCd);
+			$("#multiItmNm").val(tmpStr);
+			$("#initValues").val(JSON.stringify(saveJSON));
+		}
+
+		
+		function fnCheckboxAll(obj){
+
+			$('input[name="chkItm"]').each(function(index,item){
+				if($(obj).prop("checked") == false){ // 체크안됨
+					item.checked = false;
+					fnChkItm(item);
+				}else{ // 체크됨
+					item.checked = true;
+					fnChkItm(item);
+				}
+			})
+		}
+
+		
+		function fnSearchInit(){
+			$("#frm")[0].reset();
+			$(".search_view > tbody > tr > td > input").each(function(idx, obj){
+				$(obj).val('');
+			});
+		}
+	</script>
+</head>
+<body id="CFECC01P01">
+	<div class="wrap">
+		<div class="container_wrap pop-wrap">
+			<!-- content -->
+			<section id="content_pop" class="popup">
+	<h2>
+		
+		
+			<span>유형(품목)검색 </span>
+		
+		<button type="button" class="close" onclick="gfnWindowClose();" title="닫기">닫기</button>
+	</h2>
+	<div>
+		<form id="frm" name="frm" method="get" action="/CFECC01P01">
+			<fieldset>
+				<legend class="hidden">품목 검색</legend>
+				<input type="hidden" id="page" name="page" value="1"/>
+				<input type="hidden" id="limit" name="limit" value="10"/>
+				<input type="hidden" id="callBackFn" name="callBackFn" value="fnPopupCallback"/>
+				<input type="hidden" id="usePageId" name="usePageId" value="CFCCC01F01"/>
+				<!--<input type="hidden" name="tySpcisLclsCd" th:value="${param.tySpcisLclsCd}">-->
+				<input type="hidden" name="force" value="">
+
+				<input type="hidden" id="frmMultiItmCd" name="frmMultiItmCd" value="">
+				<input type="hidden" id="frmMultiItmNm" name="frmMultiItmNm" value="">
+
+				<input type="hidden" id="multiple" name="multiple" value="">
+				<input type="hidden" id="initValues" name="initValues" value="">
+
+				<input type="hidden" id="dclPrductYn" name="dclPrductYn" value="">
+
+				<div class="board_search">
+			<!-- 	<div class="search_layout1 mw-600">
+						<th:block th:if="${#strings.equals(param.tySpcisLclsCd,'H')}" th:with="_selVal=${param.upperItemCd}">
+							<th:block th:replace="fragments/module::selectbox(cdList=${codeList}, selVal=${_selVal}, name='upperItemCd', grpCd='C144', addFirst='- 구분 -', title='구분', class='w-6')"></th:block>
+						</th:block>
+						<th:block th:unless="${#strings.equals(param.tySpcisLclsCd,'H')}" th:with="_selVal=${param.searchTySpcisLclsCd}">
+							<th:block th:replace="fragments/module::selectbox(cdList=${codeList}, selVal=${_selVal}, name='searchTySpcisLclsCd', grpCd='D130', addFirst='- 구분 -', title='구분', class='w-6', removeVals=${ {'H'} })"></th:block>
+						</th:block>
+						<input type="text" class="w-7" name="itmCd" id="itmCd" th:value="${param.itmCd}" placeholder="유형코드 " title="유형코드 ">
+						<input type="text" class="w-7" name="koreanNm" id="koreanNm" th:value="${param.koreanNm}" placeholder="유형(품목)명 " title="유형(품목)명 ">
+						<button type="button" class="search-i" id="btnSearch" name="btnSearch" onclick="javascript:fnSearch(1);" title="검색">검색</button>
+					</div>   -->
+					
+					
+					
+
+					
+					<table  class="search_view auto_title">
+						<caption><span>유형(품목)검색 :: 구분, 유형코드, 사용여부, 유형(품목)명 정보제공</span></caption>
+						<colgroup>
+							<col style="width:15%">
+							<col style="width:35%">
+							<col style="width:15%">
+							<col style="width:auto">
+							<col style="width:15%">
+						</colgroup>
+						<tbody>
+							<tr>
+								<th scope="row">
+									<span>구분</span>
+								</th>
+								<td>
+									
+	<select id="tySpcisLclsCd" name="tySpcisLclsCd" title="구분">
+		<option title="전체" value="" >전체</option>
+		
+		
+		
+		
+		
+		
+		
+		<option title="식물성"  value="A" selected="selected">식물성</option>
+		<option title="동물성"  value="B">동물성</option>
+		<option title="가공식품"  value="C">가공식품</option>
+		<option title="식품첨가물"  value="D">식품첨가물</option>
+		<option title="건강기능식품"  value="E">건강기능식품</option>
+		<option title="기구 및 용기·포장"  value="F">기구 및 용기·포장</option>
+		<option title="위생용품"  value="H">위생용품</option>
+		<option title="기타"  value="X">기타</option>
+		<option title="동물성(기타)"  value="Z">동물성(기타)</option>
+	</select>
+	
+
+								</td>
+								
+
+								<!--<td>
+									<th:block th:if="${#strings.equals(param.tySpcisLclsCd,'H')}" th:with="_selVal=${param.upperItemCd}">
+										<th:block th:replace="fragments/module::selectbox(cdList=${codeList}, selVal=${_selVal}, name='upperItemCd', grpCd='C144', addFirst='- 구분 -', title='구분',)"></th:block>
+									</th:block>
+									<th:block th:unless="${#strings.equals(param.tySpcisLclsCd,'H')}" th:with="_selVal=${param.tySpcisLclsCd}">
+										<th:block th:replace="fragments/module::selectbox(cdList=${codeList}, selVal=${_selVal}, name='tySpcisLclsCd', grpCd='D130', addFirst='- 구분 -', title='구분',  removeVals=${ {'H'} })"></th:block>
+									</th:block>
+								</td>-->
+								<th scope="row">
+									<span>유형코드</span>
+								</th>
+								<td>
+									<input type="text" name="itmCd" id="itmCd" value="" title="유형코드 ">
+								</td>
+								<th scope="row">
+									<span>사용여부</span>
+								</th>
+								<td>
+									<input type="text" name="useYnNm" id="useYnNm" value="" title="사용여부 ">
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">
+									<span>유형(품목)명</span>
+								</th>
+								<td>
+									<input type="text" name="koreanNm" id="koreanNm" value="커피원두" title="유형(품목)명 ">
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<p class="btn_board_search">
+						<button type="submit" class="search-i" id="btnSearch" name="btnSearch" onclick="javascript:fnSearch(1);" title="검색">검색</button>
+						<button type="button" class="reset" onclick="javascript:fnSearchInit();" id="btn_reset" title="초기화">초기화</button>
+					</p>
+				</div>
+			</fieldset>
+		</form>
+	
+		<div class="board_count">
+			<span>
+	총 <strong>3</strong>건
+</span>
+			<div class="btn-group">
+				
+	<div class="list-num-select">
+		<select title="목록갯수 선택" class="page block"><!-- Select number of list 영문에서 교체요망-->
+			<option selected="selected">10</option>
+			<option>20</option>
+			<option>30</option>
+			<option>40</option>
+			<option>50</option>
+		</select>
+		<button type="button" name="btnPageLimit" title="검색" onclick="eval(&quot;fnPageLimit&quot;+&#39;($(this).prev().val())&#39;);" class="btn cate-num"></button>
+	</div>
+
+			</div>
+		</div>
+		
+		<table  class="board_list auto_title mo-list">
+			<caption><span>유형(품목)검색 조회 목록 :: 선택, 순번, 구분, 유형코드, 유형(품목)명, 사용여부 정보제공</span></caption>
+			<colgroup>
+				<col style="width: 6%">
+				<col style="width: 6%">
+				<col style="width:15%">
+				<col style="width:20%">
+				<col style="width:auto">
+				<col style="width:15%">
+			</colgroup>
+			<thead>
+				<tr>
+					<th scope="col">선택</th>
+					
+					<th scope="col">순번</th>
+					<th scope="col">구분</th>
+					<th scope="col">유형코드</th>
+					
+					
+					
+						<th scope="col">유형(품목)명</th>
+					
+					
+						<th scope="col">사용여부</th>
+					
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td class="center">
+						<input type="checkbox" name="chkItm" alt="커피원두(씨앗,건조)" id="chk1" value="A0400300100000013600">
+						
+					</td>
+					
+					<td class="center">
+						1
+					</td>	
+					<td class="center long-t">
+						식물성
+						
+					</td>
+					<td class="center long-t">
+						<input type="hidden" id="itmCd1" value="A0400300100000013600"/>
+						A0400300100000013600
+					</td>
+					<td>
+						<input type="hidden" id="koreanNm1" value="커피원두(씨앗,건조)"/>
+						커피원두(씨앗,건조)
+					</td>
+					<td class="center">
+						<input type="hidden" id="useYnNm1" value="사용중"/>
+						사용중
+					</td>
+					<input type="hidden" id="engNm1" value="COFFEE BEAN"/>
+				</tr>
+				<tr>
+					<td class="center">
+						<input type="checkbox" name="chkItm" alt="커피원두(씨앗,냉동)" id="chk2" value="A0400300100000023600">
+						
+					</td>
+					
+					<td class="center">
+						2
+					</td>	
+					<td class="center long-t">
+						식물성
+						
+					</td>
+					<td class="center long-t">
+						<input type="hidden" id="itmCd2" value="A0400300100000023600"/>
+						A0400300100000023600
+					</td>
+					<td>
+						<input type="hidden" id="koreanNm2" value="커피원두(씨앗,냉동)"/>
+						커피원두(씨앗,냉동)
+					</td>
+					<td class="center">
+						<input type="hidden" id="useYnNm2" value="사용중"/>
+						사용중
+					</td>
+					<input type="hidden" id="engNm2" value="COFFEE BEAN"/>
+				</tr>
+				<tr>
+					<td class="center">
+						<input type="checkbox" name="chkItm" alt="커피원두(씨앗,신선)" id="chk3" value="A0400300100000033600">
+						
+					</td>
+					
+					<td class="center">
+						3
+					</td>	
+					<td class="center long-t">
+						식물성
+						
+					</td>
+					<td class="center long-t">
+						<input type="hidden" id="itmCd3" value="A0400300100000033600"/>
+						A0400300100000033600
+					</td>
+					<td>
+						<input type="hidden" id="koreanNm3" value="커피원두(씨앗,신선)"/>
+						커피원두(씨앗,신선)
+					</td>
+					<td class="center">
+						<input type="hidden" id="useYnNm3" value="사용중"/>
+						사용중
+					</td>
+					<input type="hidden" id="engNm3" value="COFFEE BEAN"/>
+				</tr>
+				
+			</tbody>
+		</table>
+		<div class="btn-group right">
+			<button type="button" class="far fa-plus-square type2" onclick="javascript:fnAddItem();" title="추가">선택품목추가</button>
+		</div>
+
+		<div class="board_search">
+			<table  class="search_view auto_title">
+				<colgroup>
+					<col style="width:15%">
+					<col style="width:auto">
+				</colgroup>
+				<tbody>
+				<tr>
+					<td scope="row">
+						
+						
+						
+							<span class="th">선택된 품목</span>
+						
+					</td>
+					<td>
+						<input type="hidden" name="multiItmCd" id="multiItmCd" value="" title="선택된 품목" readonly>
+						<input type="text" name="multiItmNm" id="multiItmNm" value="" title="선택된 품목" readonly>
+						<input type="hidden" name="multiItmEnNm" id="multiItmEnNm" value="" title="선택된 품목" readonly>
+					</td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+
+
+		<!-- /* 페이징 */ -->
+		<p class="page_navi">
+<button type="button" title="first" class="page_first disabled">처음페이지</button>
+<button type="button" title="prev" class="page_prev disabled">이전페이지</button>
+<a href="javascript:;" class="on" title="1 page">1</a>
+<span><input type="text" class="number" title="page number" value="1" onChange="$('[name=page]').val($(this).val());"/><span> / 1</span><a href="javascript:fnGetList(2);" title="go">Go</a></span><button type="button" title="next" class="page_next disabled">다음페이지</button>
+<button type="button" title="last" class="page_last disabled">마지막페이지</button>
+</p>
+
+					
+		<div class="btn-group right">
+			<button type="button" class="far fa-check-circle type2" onclick="javascript:fnConfirm();" title="확인">확인</button>
+			<button type="button" class="fas fa-times type1 bt10" onclick="javascript:gfnWindowClose();" title="닫기">닫기</button>
+		</div>
+	</div>
+
+</section>
+			<!-- //content -->
+		</div>
+	</div>
+</body>
+</html>
+
