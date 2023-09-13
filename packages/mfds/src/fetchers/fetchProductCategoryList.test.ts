@@ -1,18 +1,17 @@
-import { listProduct } from "./listProduct";
+import fetchProductCategoryList from "./fetchProductCategoryList";
+import productCategoryListTestData from '../tests/productCategoryListTestData';
 
 import { join } from "path";
 import https from 'https';
 import { IncomingMessage } from 'http';
 import { readFile } from 'fs/promises';
-import productListTestData from '../tests/productListTestData';
 
 jest.mock('https')
 
-describe('listProduct', () => {
-  
-  it('Fetches products correctly', async () => {
+describe('listProductCategory', () => {
+  it('Fetches product categories correctly', async () => {
     const mockData = await readFile(
-      join(__dirname,'../tests/listProductTestResponse.html'),
+      join(__dirname,'../tests/listProductCategoryTestResponse.html'),
       {
         encoding: 'utf8'
       }
@@ -35,17 +34,14 @@ describe('listProduct', () => {
       callback(mockIncomingMessage);
     })
 
-    const productList = await listProduct(
-      "가공식품",
-      ["과실주"],
-      ["C0314180000000000000"],
-      new Date('2023-09-01'),
-      new Date('2023-09-01'), 
+    const productCategoryList = await fetchProductCategoryList(
+      "커피원두",
+      "커피원두",
+      "식물성",
     );
 
-    // console.log(productList);
-
-    expect(productList)
-      .toStrictEqual(productListTestData)
+    expect(productCategoryList)
+      .toStrictEqual(productCategoryListTestData)
   })
 });
+

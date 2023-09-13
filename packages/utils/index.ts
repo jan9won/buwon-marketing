@@ -1,4 +1,4 @@
-import { incrementalFileNaming } from './incrementalFileNaming';
+import { incrementalFileNaming } from './src/incrementalFileNaming';
 
 export {
   incrementalFileNaming

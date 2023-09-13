@@ -99,7 +99,7 @@ async function listProductPage (queryParameters: QueryParameterType) {
 // ------------------------------------------------------------------------ //
 // Main Function
 // ------------------------------------------------------------------------ //
-export async function listProduct (
+export default async (
   dclPrductSeCd: keyof typeof constants.foodTypeCode.listProduct,
   rpsntItmNm: string[],  // 품목명
   rpsntItmCd: string[],  // 품목 넘버 (comma separated)
@@ -107,8 +107,7 @@ export async function listProduct (
   srchEndDt: Date,
 ): Promise<{
   [K in typeof constants.productListColumn[number]]: string
-}[]>
-{
+}[]> => {
 
   // ------------------------------------------------------------------------ //
   // get total count

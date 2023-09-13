@@ -75,7 +75,7 @@ async function listProductCategoryPage (queryParameters: QueryParameterType) {
 // -------------------------------------------------------------------------- //
 // Main Function
 // -------------------------------------------------------------------------- //
-export const listProductCategory = async (
+export default async (
   searchKeyword: string,
   displayKeyword: string,
   tySpcisLclsCd: keyof typeof constants.foodTypeCode.listProductCategory,
