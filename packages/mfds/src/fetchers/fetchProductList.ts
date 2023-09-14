@@ -5,11 +5,12 @@ import { parse as parseHTML } from 'node-html-parser'
 // ------------------------------------------------------------------------ //
 // Typings
 // ------------------------------------------------------------------------ //
+type foodTypeCodeType = typeof constants.foodTypeCode.fetchProductList
 type QueryParameterType = {
   totalCnt?: number  // 
   page: number  // 페이지넘버
   limit: number  // 페이지당 표시갯수
-  dclPrductSeCd: typeof constants.foodTypeCode.listProduct[keyof typeof constants.foodTypeCode.listProduct], // 구분
+  dclPrductSeCd: foodTypeCodeType[keyof foodTypeCodeType], // 구분
   prductNm?: string  // 제품명
   rpsntItmNm: string[] // 품목명 (comma separated)
   bsshNm?: string  // 이력추적번호
@@ -100,13 +101,13 @@ async function listProductPage (queryParameters: QueryParameterType) {
 // Main Function
 // ------------------------------------------------------------------------ //
 export default async (
-  dclPrductSeCd: keyof typeof constants.foodTypeCode.listProduct,
+  dclPrductSeCd: keyof typeof constants.foodTypeCode.fetchProductList,
   rpsntItmNm: string[],  // 품목명
   rpsntItmCd: string[],  // 품목 넘버 (comma separated)
   srchStrtDt: Date,
   srchEndDt: Date,
 ): Promise<{
-  [K in typeof constants.productListColumn[number]]: string
+  [K in typeof constants.responseHTMLTableColumns.fetchProductList[number]]: string
 }[]> => {
 
   // ------------------------------------------------------------------------ //
@@ -116,7 +117,7 @@ export default async (
   await listProductPage({
     page: 1,
     limit: 10,
-    dclPrductSeCd: constants.foodTypeCode.listProduct[dclPrductSeCd],
+    dclPrductSeCd: constants.foodTypeCode.fetchProductList[dclPrductSeCd],
     rpsntItmNm: rpsntItmNm,
     srchStrtDt: srchStrtDt,
     srchEndDt: srchEndDt,
@@ -146,7 +147,7 @@ export default async (
   return await listProductPage({
     page: 1,
     limit: totalCount,
-    dclPrductSeCd: constants.foodTypeCode.listProduct[dclPrductSeCd],
+    dclPrductSeCd: constants.foodTypeCode.fetchProductList[dclPrductSeCd],
     rpsntItmNm: rpsntItmNm,
     srchStrtDt: srchStrtDt,
     srchEndDt: srchEndDt,
@@ -160,9 +161,9 @@ export default async (
         const tdArray = product.querySelectorAll('td')
           .map(col => col.innerText.replace(/[\r\n\t]/g,''));
         return tdArray.reduce((acc,td,idx) => {
-          acc[constants.productListColumn[idx]] = td;
+          acc[constants.responseHTMLTableColumns.fetchProductList[idx]] = td;
           return acc;
-        }, {} as {[K in typeof constants.productListColumn[number]]: string})
+        }, {} as {[K in typeof constants.responseHTMLTableColumns.fetchProductList[number]]: string})
       });
       return allProducts;
   })

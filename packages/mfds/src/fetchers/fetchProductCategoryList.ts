@@ -8,7 +8,7 @@ import { parse as parseHTML } from 'node-html-parser';
 // -------------------------------------------------------------------------- //
 // Query Parameter Type
 // -------------------------------------------------------------------------- //
-type foodTypeCodeType  = typeof constants.foodTypeCode.listProductCategory
+type foodTypeCodeType  = typeof constants.foodTypeCode.fetchProductCategoryList
 type QueryParameterType = {
   page: number,  // 페이지넘버
   limit: number,  // 페이지당 표시갯수
@@ -78,7 +78,7 @@ async function listProductCategoryPage (queryParameters: QueryParameterType) {
 export default async (
   searchKeyword: string,
   displayKeyword: string,
-  tySpcisLclsCd: keyof typeof constants.foodTypeCode.listProductCategory,
+  tySpcisLclsCd: keyof typeof constants.foodTypeCode.fetchProductCategoryList,
 ): 
 Promise<{
   'foodType': keyof foodTypeCodeType,
@@ -95,7 +95,7 @@ Promise<{
     page: 1,
     limit: 10,
     koreanNm: searchKeyword,
-    tySpcisLclsCd: constants.foodTypeCode.listProductCategory[tySpcisLclsCd]
+    tySpcisLclsCd: constants.foodTypeCode.fetchProductCategoryList[tySpcisLclsCd]
   })
   .catch(err => {throw err})
   .then(data => {
@@ -113,7 +113,7 @@ Promise<{
     page: 1,
     limit: totalCount,
     koreanNm: searchKeyword,
-    tySpcisLclsCd: constants.foodTypeCode.listProductCategory[tySpcisLclsCd]
+    tySpcisLclsCd: constants.foodTypeCode.fetchProductCategoryList[tySpcisLclsCd]
   })
   .catch(err => {throw err})
   .then(data => {

@@ -1,11 +1,9 @@
 import {foodTypeCode} from "./foodTypeCode";
 import {uri} from "./uri";
-import {productListColumn} from "./productListColumn"
-import { productCategoryListColumn } from "./productCategoryListColumn";
+import {responseHTMLTableColumns} from "./responseHTMLTableColumns"
 
 export {
   foodTypeCode,
   uri,
-  productListColumn,
-  productCategoryListColumn,
+  responseHTMLTableColumns,
 }

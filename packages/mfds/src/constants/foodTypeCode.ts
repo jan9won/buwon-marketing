@@ -1,4 +1,4 @@
-const listProductCategory = {
+const fetchProductCategoryList = {
   "식물성": "A",
   "동물성": "B",
   "가공식품": "C",
@@ -10,7 +10,7 @@ const listProductCategory = {
   "동물성(기타)": "Z",
 } as const
 
-const listProduct = {
+const fetchProductList = {
   "농임산물": "1",
   "수산물": "2",
   "축산물": "3",
@@ -34,8 +34,8 @@ const categoryToProductMap = {
 } as const
 
 export const foodTypeCode = {
-  listProductCategory,
-  listProduct,
+  fetchProductCategoryList,
+  fetchProductList,
   categoryToProductMap,
 }
 
